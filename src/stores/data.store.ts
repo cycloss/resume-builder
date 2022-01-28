@@ -1,19 +1,19 @@
-import create from 'zustand';
 import { arrayMoveImmutable } from 'array-move';
-import { persist } from 'zustand/middleware';
 import produce from 'immer';
 import userData from 'src/stores/data.json';
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
 const labels = [
   'Experience',
-  'Key Projects / Involvements',
-  'Certificates and Awards',
+  'Development Approach',
+  'Other Qualifications',
   'About me',
-  'Career Objective',
-  'Technical Expertise',
+  'Career Objectives',
+  'Core Stack',
   'Skills / Exposure',
   'Methodology / Approach',
-  'Tools',
+  'Other Tools',
   'Education',
   'Relevant Experience',
   'Total Experience',

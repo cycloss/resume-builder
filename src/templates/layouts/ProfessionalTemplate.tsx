@@ -1,26 +1,26 @@
 import React from 'react';
-import shallow from 'zustand/shallow';
-import styled from 'styled-components';
-import { Flex, FlexCol } from 'src/styles/styles';
+import {
+  useActivities,
+  useEducation,
+  useIntro,
+  useLabels,
+  useSkills,
+  useWork,
+} from 'src/stores/data.store';
 import { getIcon } from 'src/styles/icons';
+import { Flex, FlexCol } from 'src/styles/styles';
+import { Description } from 'src/templates/components/description/Description';
+import { EduSection } from 'src/templates/components/education/EduSection';
+import { Exp } from 'src/templates/components/exp/Exp';
+import { Intro } from 'src/templates/components/intro/Intro';
 import {
   ModernHeader,
   ModernHeaderIntro,
 } from 'src/templates/components/section-layout/ModernHeader';
-import { Intro } from 'src/templates/components/intro/Intro';
-import { Description } from 'src/templates/components/description/Description';
 import { RatedBars } from 'src/templates/components/skills/RatedBars';
 import { UnratedTabs } from 'src/templates/components/skills/UnratedTabs';
-import { Exp } from 'src/templates/components/exp/Exp';
-import { EduSection } from 'src/templates/components/education/EduSection';
-import {
-  useIntro,
-  useWork,
-  useSkills,
-  useActivities,
-  useEducation,
-  useLabels,
-} from 'src/stores/data.store';
+import styled from 'styled-components';
+import shallow from 'zustand/shallow';
 
 const ResumeContainer = styled(Flex)`
   height: 100%;
@@ -49,7 +49,7 @@ const RightSection = styled(FlexCol)`
 
 const labelsIcon = [
   'work',
-  'key',
+  'branch',
   'certificate',
   'identity',
   'career',
@@ -87,17 +87,17 @@ export default function ProfessionalTemplate() {
       title: labels[0],
       icon: labelsIcon[0],
       component: <Exp companies={experience.companies} />,
-      styles: { flexGrow: 1 },
     },
     {
       title: labels[1],
       icon: labelsIcon[1],
       component: <Description description={involvements} />,
     },
+
     {
-      title: labels[2],
-      icon: labelsIcon[2],
-      component: <Description description={achievements} />,
+      title: labels[4],
+      icon: labelsIcon[4],
+      component: <Description description={intro.objective} />,
     },
   ];
   const rightSections = [
@@ -106,31 +106,27 @@ export default function ProfessionalTemplate() {
       icon: labelsIcon[3],
       component: <Description photo={intro.image} description={intro.summary} />,
     },
-    {
-      title: labels[4],
-      icon: labelsIcon[4],
-      component: <Description description={intro.objective} />,
-    },
+
     {
       title: labels[5],
       icon: labelsIcon[5],
       component: <RatedBars items={[...languages, ...frameworks]} />,
     },
-    {
-      title: labels[6],
-      icon: labelsIcon[6],
-      component: <UnratedTabs items={[...technologies, ...libraries, ...databases]} />,
-    },
+    { title: labels[8], icon: labelsIcon[8], component: <UnratedTabs items={tools} /> },
     {
       title: labels[7],
       icon: labelsIcon[7],
       component: <UnratedTabs items={practices} />,
     },
-    { title: labels[8], icon: labelsIcon[8], component: <UnratedTabs items={tools} /> },
     {
       title: labels[9],
       icon: labelsIcon[9],
       component: <EduSection education={education} />,
+    },
+    {
+      title: labels[2],
+      icon: labelsIcon[2],
+      component: <Description description={achievements} />,
     },
   ];
 
@@ -143,8 +139,8 @@ export default function ProfessionalTemplate() {
 
         {leftSections
           .filter(({ title }) => !!title)
-          .map(({ title, icon, component, styles }) => (
-            <ModernHeader icon={getIcon(icon)} title={title} styles={styles} key={title}>
+          .map(({ title, icon, component }) => (
+            <ModernHeader icon={getIcon(icon)} title={title} key={title}>
               {component}
             </ModernHeader>
           ))}
